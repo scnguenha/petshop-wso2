@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/petshop" name="PetshopAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST">
+        <inSequence>
+            <clone id="petmessage">
+                <target>
+                    <sequence>
+                        <property expression="json-eval($.petid)" name="uri.var.petid" scope="default" type="STRING"/>
+                        <send>
+                            <endpoint key="PetEndpoint"/>
+                        </send>
+                    </sequence>
+                </target>
+                <target>
+                    <sequence>
+                        <payloadFactory media-type="json">
+                            <format>{
+    "ownername": "$1",
+    "owneraddress": "$2",
+    "ownermobilephone": "$3",
+    "owneremail": "$4"
+}
+</format>
+                            <args>
+                                <arg evaluator="json" expression="$.ownername"/>
+                                <arg evaluator="json" expression="$.owneraddress"/>
+                                <arg evaluator="json" expression="$.ownermobilephone"/>
+                                <arg evaluator="json" expression="$.owneremail"/>
+                            </args>
+                        </payloadFactory>
+                        <loopback/>
+                    </sequence>
+                </target>
+            </clone>
+        </inSequence>
+        <outSequence>
+            <aggregate id="petmessage">
+                <completeCondition>
+                    <messageCount max="-1" min="-1"/>
+                </completeCondition>
+                <onComplete aggregateElementType="root" expression="$body/*[1]">
+                    <payloadFactory media-type="json">
+                        <format>{ "owner" : {
+    "name":"$1",
+    "address":"$2",
+    "mobilephone": "$3",
+    "email": "$4"
+},
+	"pet":{
+    "name": "$6",
+    "pettype": "$8 $7"
+
+}
+}</format>
+                        <args>
+                            <arg evaluator="xml" expression="//ownername/text()"/>
+                            <arg evaluator="xml" expression="//owneraddress/text()"/>
+                            <arg evaluator="xml" expression="//ownermobilephone/text()"/>
+                            <arg evaluator="xml" expression="//owneremail/text()"/>
+                            <arg evaluator="xml" expression="//petid/text()"/>
+                            <arg evaluator="xml" expression="//name/text()"/>
+                            <arg evaluator="xml" expression="//type/text()"/>
+                            <arg evaluator="xml" expression="//breed/text()"/>
+                        </args>
+                    </payloadFactory>
+                    <log level="full"/>
+                    <send/>
+                </onComplete>
+            </aggregate>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+</api>

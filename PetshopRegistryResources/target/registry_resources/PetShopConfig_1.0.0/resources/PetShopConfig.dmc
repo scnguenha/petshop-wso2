@@ -1,0 +1,24 @@
+map_S_root_S_root = function(){ 
+var outputroot={};
+
+outputroot =  {};
+outputroot.owner =  {};
+outputroot.owner.ownername = inputroot.ownername;
+outputroot.owner.owneraddress = inputroot.owneraddress;
+outputroot.owner.ownermobilephone = inputroot.ownermobilephone;
+outputroot.owner.owneremail = inputroot.owneremail;
+outputroot.pet =  {};
+outputroot.pet.petid = inputroot.id;
+outputroot.pet.name = inputroot.name;
+outputroot.pet.pettype = inputroot.breed.toString().concat(' ',inputroot.type);
+return outputroot;
+};
+
+
+
+
+
+
+
+
+

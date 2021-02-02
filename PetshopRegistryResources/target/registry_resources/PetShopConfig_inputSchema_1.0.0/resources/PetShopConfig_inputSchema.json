@@ -1,0 +1,41 @@
+{
+  "$schema" : "http://wso2.org/json-schema/wso2-data-mapper-v5.0.0/schema#",
+  "inputType" : "JSON",
+  "id" : "http://wso2jsonschema.org",
+  "title" : "root",
+  "type" : "object",
+  "properties" : {
+    "ownername" : {
+      "id" : "http://wso2jsonschema.org/ownername",
+      "type" : "string"
+    },
+    "owneraddress" : {
+      "id" : "http://wso2jsonschema.org/owneraddress",
+      "type" : "string"
+    },
+    "ownermobilephone" : {
+      "id" : "http://wso2jsonschema.org/ownermobilephone",
+      "type" : "string"
+    },
+    "owneremail" : {
+      "id" : "http://wso2jsonschema.org/owneremail",
+      "type" : "string"
+    },
+    "id" : {
+      "id" : "http://wso2jsonschema.org/petid",
+      "type" : "string"
+    },
+    "name" : {
+      "id" : "http://wso2jsonschema.org/name",
+      "type" : "string"
+    },
+    "type" : {
+      "id" : "http://wso2jsonschema.org/type",
+      "type" : "string"
+    },
+    "breed" : {
+      "id" : "http://wso2jsonschema.org/breed",
+      "type" : "string"
+    }
+  }
+}

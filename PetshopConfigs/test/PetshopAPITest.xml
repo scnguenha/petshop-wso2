@@ -1,0 +1,76 @@
+<unit-test>
+    <artifacts>
+        <test-artifact>
+            <artifact>/PetshopConfigs/src/main/synapse-config/api/PetshopAPI.xml</artifact>
+        </test-artifact>
+        <supportive-artifacts>
+            <artifact>/PetshopConfigs/src/main/synapse-config/endpoints/PetEndpoint.xml</artifact>
+        </supportive-artifacts>
+        <registry-resources>
+            <registry-resource>
+                <file-name>PetShopConfig.dmc</file-name>
+                <artifact>/PetshopRegistryResources/PetShopConfig.dmc</artifact>
+                <registry-path>/_system/governance/datamapper</registry-path>
+                <media-type>text/plain</media-type>
+            </registry-resource>
+            <registry-resource>
+                <file-name>PetShopConfig_outputSchema.json</file-name>
+                <artifact>/PetshopRegistryResources/PetShopConfig_outputSchema.json</artifact>
+                <registry-path>/_system/governance/datamapper</registry-path>
+                <media-type>text/plain</media-type>
+            </registry-resource>
+            <registry-resource>
+                <file-name>PetShopConfig_inputSchema.json</file-name>
+                <artifact>/PetshopRegistryResources/PetShopConfig_inputSchema.json</artifact>
+                <registry-path>/_system/governance/datamapper</registry-path>
+                <media-type>text/plain</media-type>
+            </registry-resource>
+            <registry-resource>
+                <file-name>PetShopConfig_xsltStyleSheet.xml</file-name>
+                <artifact>/PetshopRegistryResources/PetShopConfig_xsltStyleSheet.xml</artifact>
+                <registry-path>/_system/governance/datamapper</registry-path>
+                <media-type>text/plain</media-type>
+            </registry-resource>
+        </registry-resources>
+        <connector-resources/>
+    </artifacts>
+    <test-cases>
+        <test-case name="ResponseValidation">
+            <input>
+                <request-path>/pet</request-path>
+                <request-method>POST</request-method>
+                <payload><![CDATA[{
+    "ownername":"Sidy Nguenha",
+    "owneraddress":"Mozambique, Maputo",
+    "ownermobilephone": "842168777",
+    "owneremail": "sid.goenha@gmail.com",
+    "petid":"1"
+}]]></payload>
+                <properties>
+                    <property name="Content-Type" scope="transport" value="application/json"/>
+                </properties>
+            </input>
+            <assertions>
+                <assertEquals>
+                    <actual>$body</actual>
+                    <expected><![CDATA[{
+    "owner": {
+        "name": "Sidy Nguenha",
+        "address": "Mozambique, Maputo",
+        "mobilephone": "842168777",
+        "email": "sid.goenha@gmail.com"
+    },
+    "pet": {
+        "name": "Rex",
+        "pettype": "Beagle Dog"
+    }
+}]]></expected>
+                    <message>Invalid Response</message>
+                </assertEquals>
+            </assertions>
+        </test-case>
+    </test-cases>
+    <mock-services>
+        <mock-service>/PetshopConfigs/test/resources/mock-services/PetshopBackEnd.xml</mock-service>
+    </mock-services>
+</unit-test>

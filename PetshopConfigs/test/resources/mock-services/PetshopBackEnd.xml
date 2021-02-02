@@ -1,0 +1,23 @@
+<mock-service>
+    <service-name>PetEndpoint</service-name>
+    <port>8180</port>
+    <context>/petshop</context>
+    <resources>
+        <resource>
+            <sub-context>/pets/1</sub-context>
+            <method>GET</method>
+            <response>
+                <status-code>200</status-code>
+                <payload><![CDATA[{
+    "id": 1,
+    "name": "Rex",
+    "type": "Dog",
+    "breed": "Beagle"
+}]]></payload>
+                <headers>
+                    <header name="Content-Type" value="application/json"/>
+                </headers>
+            </response>
+        </resource>
+    </resources>
+</mock-service>
